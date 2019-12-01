@@ -1,0 +1,45 @@
+#Code for R on Windows 10 using Rstudio
+# Completed using R 3.5.1 32-bit - FREE DOWNLOAD Here: https://www.r-project.org/
+# Compiled in Rstudio FREE DOWNLOAD Here: https://rstudio.com/products/rstudio/
+# Must install packages shown in (parenthesis below). This can be done in Rstudio under the "Packages" tab.
+# Whenever you have a question in R or Rstudio, google your question to find help. The help tab can also be used in Rstudio.
+# Below is the code used to generate the charts for the Misela epidemic using Data from the Samoa Ministry of Health and 
+# National Emergency Opetation Centre 
+# Paste this code into R studio after installing the packages needed
+### Data compiled from Samoa Ministry of Health and National Emergency Operation Centre: https://www.facebook.com/samoagovt/ ###
+library(waffle)
+library(extrafont)
+library(smwrBase)
+library(smwrStats)
+library(RColorBrewer)
+#Getting the emoji font and font awesome set up
+font_import()
+loadfonts(device = "win")
+fonts()[grep("Awesome", fonts())]
+#This should result in:
+#[1] "FontAwesome"
+load.fontawesome(font = "fontawesome-webfont.ttf")
+load.fontawesome(font = "fontawesome-webfont.otf")
+#pretty sure line 12+13 were the ones that worked, but now this works
+### Update numbers in NewMisela with totals when new data are published from Samoa Ministry of Health ###
+NewMisela<-c(Four_tausaga_and_younger=775,Five_to_19_tausaga=402,Twenty_to_39_tausaga=376,
+             Forty_to_49_tausaga=46,Fifty_and_older_tausaga=34)
+pal<-brewer.pal(9, "PuOr")[c(1,2,3,7,9)]
+NewMisela.ch<-waffle(NewMisela,rows=40,use_glyph="user", glyph_size=5, 
+                     title = "New Misela Cases by Age Group - Samoa Novema 23, 2019 to present",colors=pal)
+print(NewMisela.ch)
+### Update numbers in FatalMisela with totals when new data are published from Samoa Ministry of Health ###
+FatalMisela<-c(Four_tausaga_and_younger=44,Five_to_19_tausaga=3,Twenty_to_39_tausaga=1,
+               Forty_to_49_tausaga=0,Fifty_and_older_tausaga=0)
+FatalMisela.ch<-waffle(FatalMisela,rows=10,use_glyph="user", glyph_size=10,
+                       title="Misela Fatalities to Date by Age Group - Samoa Tesema 1, 2019",colors=pal)
+print(FatalMisela.ch)
+### Update numbers in TotalMisela with totals when new data are published from Samoa Ministry of Health ###
+TotalMiselaCase<-c(Four_tausaga_and_younger=1795,Five_to_19_tausaga=808,Twenty_to_39_tausaga=762,
+                   Forty_to_49_tausaga=94,Fifty_and_older_tausaga=71)
+TotalMisela.ch<-waffle(TotalMiselaCase,rows=52,use_glyph="user", glyph_size=3,
+                       title="Total Misela Cases to Date by Age Group - Samoa Tesema 1, 2019",colors=pal)
+print(TotalMisela.ch)
+### output will be updated at 
+# http://rpubs.com/dorelxa
+### END ###
